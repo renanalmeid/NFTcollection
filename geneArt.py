@@ -3,7 +3,7 @@ from artGene import artGenerate
 def geneArt():
     print("Generating Art")
     generate = artGenerate("./designs") 
-    generate.genArt()
+    generate.geneArt()
 
 
 if __name__== "__main__":

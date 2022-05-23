@@ -1,4 +1,5 @@
 import os
+import random
 from typing import List
 from layer import Layer 
 from PIL import Image
@@ -13,6 +14,10 @@ class artGenerate:
         self.layers: List[Layer] = self.loadDesignsLayers(designsPath)
         self.backgroundColor =(255,255,255)
 
+        #Background Raro
+        self.rareBackgroundColor = (255,211,0)
+        self.rareBackgroundChance= 0.1
+
         #Diretorio de saida para avatar gerados
         self.outputPath: str = "./output"
         os.makedirs(self.outputPath, exist_ok=True)
@@ -25,8 +30,9 @@ class artGenerate:
         #Debug   
         #print(subPaths)
 
-        #Cria variavel para armazenar 
-        layers = []
+        #Cria variavel para armazenar
+        # Rarityvariable  
+        layers: List[Layer] = []
 
         #iterar entre cada subpath para gerar as camadas
         for subPath in subPaths:
@@ -34,6 +40,9 @@ class artGenerate:
             layerPaths = os.path.join(designsPath, subPath)
             layer = Layer(layerPaths)
             layers.append(layer)
+
+        layers[2].rarity = 0.80
+        layers[5].rarity = 0.10
         return layers
 
     #Iterar pelas camadas 
@@ -41,15 +50,22 @@ class artGenerate:
         designsPathSequence = []
         
         for layer in self.layers:
-            designPath = layer.getRandomDesignPath()
-            designsPathSequence.append(designPath)
+            if layer.definirVariedade():
+                designPath = layer.getRandomDesignPath()
+                designsPathSequence.append(designPath)
         
         return designsPathSequence
 
     #Criar o a imagem a partir dos atributos randomly chosen, carregar a imagem
     def renderArtDesign (self, designsPathSequence: List[str]):
+
+        if random.random() < self.rareBackgroundChance:
+            bgColor = self.rareBackgroundColor
+        else:
+            bgColor = self.backgroundColor
+
         #Backgroundimage
-        design = Image.new("RGBA", (1620, 2160),self.backgroundColor)
+        design = Image.new("RGBA", (1620, 2160),bgColor)
 
         for designPath in designsPathSequence:
             layerDesign = Image.open(designPath)

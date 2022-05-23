@@ -1,9 +1,8 @@
 from artGene import artGenerate
 
 def geneArt():
-    print("Generating Art")
     generate = artGenerate("./designs") 
-    generate.geneArt()
+    generate.geneArt(100)
 
 
 if __name__== "__main__":

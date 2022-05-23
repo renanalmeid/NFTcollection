@@ -4,10 +4,12 @@ import random
 
 class Layer:
 
-    def __init__(self, layerPath: str) :
-        self.layerPath = layerPath
+    def __init__(self, path: str) :
+        self.path = path
 
     def getRandomDesignPath(self):
         designsFileNames = os.listdir(self.path)
-        print(designsFileNames)
-        return ""     
+        randomDesignFName = random.choice(designsFileNames)
+        
+        #Dar diferentes raridades?
+        return os.path.join(self.path, randomDesignFName)  

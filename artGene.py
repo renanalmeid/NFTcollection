@@ -16,7 +16,7 @@ class artGenerate:
 
         #Background Raro
         self.rareBackgroundColor = (255,211,0)
-        self.rareBackgroundChance= 0.1
+        self.rareBackgroundChance= 0.05
 
         #Diretorio de saida para avatar gerados
         self.outputPath: str = "./output"
@@ -42,7 +42,7 @@ class artGenerate:
             layers.append(layer)
 
         layers[2].rarity = 0.80
-        layers[5].rarity = 0.10
+        layers[5].rarity = 0.15
         return layers
 
     #Iterar pelas camadas 
@@ -84,7 +84,7 @@ class artGenerate:
 
     def geneArt(self, n: int = 1):
         #Debug
-        print("artGenerate: Generating Art")
+        #print("artGenerate: Generating Art")
 
         for j in range(n):
             designsPathSequence = self.genDesignSequence()
